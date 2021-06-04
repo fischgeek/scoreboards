@@ -6,6 +6,7 @@ body {
 
 h4 {
     color: white;
+    display: inline-block;
 }
 
 body {
@@ -26,4 +27,17 @@ body {
 .btn {
     height: 45px;
     margin-top: 8px;
+}
+
+#edit-icon {
+    background: url('../assets/edit.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: block;
+    float: right;
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 25px;
+    top: 5px;
 }

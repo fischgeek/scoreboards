@@ -2,6 +2,8 @@ $(function() {
     var game = loadGame()
     if (game.isSaved) { startGame() }
 
+    $('#btn-start-game').attr('disabled', 'disabled')
+
     $('#btn-add-new-player').click(function() { addPlayer() })
 
     $('#btn-start-game').click(function() { startGame() })
@@ -14,21 +16,41 @@ $(function() {
 
     $('#btn-reset').click(function() { reset() })
 
+    $('#edit-icon').click(function() { editScores() })
+
+    $("#modal-update-scores").on('hidden.bs.modal', function() { game.editMode = false })
+
     function startGame() {
-        $("#setup-row").hide()
-        $("#btn-start-game").hide()
-        $("#btn-new-game").hide()
-        $("#btn-reset").hide()
-        $("#btn-end-round").show()
-        updateGameBoard()
+        if (game.players.length > 0) {
+            $("#setup-row").hide()
+            $("#btn-start-game").hide()
+            $("#btn-new-game").hide()
+            $("#btn-reset").hide()
+            $("#btn-end-round").show()
+            updateGameBoard()
+        }
     }
 
     function endRound() {
-
         $("#modal-update-scores-body").empty()
+        $("#modal-title").text("Round " + game.round + " Ended")
+        $("#modal-instructions").text("Enter the scores for round " + game.round + ".")
         for (var i = 0; i < game.players.length; i++) {
             var p = game.players[i]
             var html = '<div style="padding-bottom:5px" class="col-4"><label>' + p.name + '</label><input id="' + p.name + '-score" type="number" class="form-control"></input></div>'
+            $("#modal-update-scores-body").append(html)
+        }
+        $("#modal-update-scores").modal("show")
+    }
+
+    function editScores() {
+        game.editMode = true
+        $("#modal-update-scores-body").empty()
+        $("#modal-title").text("Edit Player Scores")
+        $("#modal-instructions").text("Alter the players' total scores as needed.")
+        for (var i = 0; i < game.players.length; i++) {
+            var p = game.players[i]
+            var html = '<div style="padding-bottom:5px" class="col-4"><label>' + p.name + '</label><input id="' + p.name + '-score" type="number" class="form-control" value="' + p.score + '"></input></div>'
             $("#modal-update-scores-body").append(html)
         }
         $("#modal-update-scores").modal("show")
@@ -42,11 +64,17 @@ $(function() {
             if (isNaN(x)) {
                 x = 0
             }
-            p.score += x
+            if (game.editMode) {
+                p.score = x
+            } else {
+                p.score += x
+            }
         }
-        game.round += 1
-        game.isSaved = true
-        localStorage.setItem('rummy', JSON.stringify(game))
+        if (!game.editMode) {
+            game.round += 1
+            game.isSaved = true
+            localStorage.setItem('rummy', JSON.stringify(game))
+        }
         $("#modal-update-scores").modal("hide")
         updateGameBoard()
     }
@@ -86,6 +114,7 @@ $(function() {
                 score: 0,
                 dealer: game.players.length == 0 ? true : false
             }
+            $('#btn-start-game').removeAttr('disabled')
             game.players.push(newPlayer)
             populatePlayersList()
             $("#new-player-name").val("")
@@ -98,9 +127,9 @@ $(function() {
         for (var i = 0; i < game.players.length; i++) {
             var p = game.players[i]
             if (p.dealer) {
-                $("#players-list").append('<li class="list-group-item d-flex justify-content-between align-items-center list-group-item-primary">' + p.name + '<span class="playerscore">' + p.score + '</span></li>')
+                $("#players-list").append('<li class="player-list-item list-group-item d-flex justify-content-between align-items-center list-group-item-primary">' + p.name + '<span class="playerscore" player="' + p.name + '">' + p.score + '</span></li>')
             } else {
-                $("#players-list").append('<li class="list-group-item d-flex justify-content-between align-items-center">' + p.name + '<span class="playerscore">' + p.score + '</span></li>')
+                $("#players-list").append('<li class="player-list-item list-group-item d-flex justify-content-between align-items-center">' + p.name + '<span class="playerscore" player="' + p.name + '">' + p.score + '</span></li>')
             }
         }
     }
