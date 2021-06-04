@@ -1,0 +1,63 @@
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+#main-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+}
+
+body {
+  background: url("../assets/dice_bg2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#game-round {
+  color: white;
+}
+
+.topspace {
+  margin-top: 15px;
+}
+
+.playerscore {
+  font-size: 25px;
+  line-height: 1;
+}
+
+.player-new-score {
+  width: 75px;
+}
+
+.player-name {
+  width: 90%;
+  word-break: break-all;
+}
+
+.glyph {
+  font-size: 17px;
+}
+
+li span {
+  padding: 0 5px 0 5px;
+}
+
+#leader {
+  color: white;
+  display: none;
+  width: 100%;
+  text-align: right;
+  padding-right: 5px;
+  line-height: 35px;
+}
+
+.in-game-button {
+  display: none;
+}

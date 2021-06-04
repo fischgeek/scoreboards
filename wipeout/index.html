@@ -1,0 +1,86 @@
+<html>
+
+<head>
+    <title>Wipeout</title>
+    <script src="scripts/jquery-3.2.0.min.js"></script>
+    <script src="libraries/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+    <link href="libraries/bootstrap-4.4.1-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/style.css?v=12" rel="stylesheet">
+    <script src="scripts/main.js?v=e2238f50"></script>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=stretch">
+    <!--Apple-->
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+</head>
+
+<body>
+    <div id="main-container">
+    <div id="setup-container" class="container topspace">
+        <div id="setup-row" class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">New player</h5>
+                        <input type="text" id="new-player-name" class="form-control" id="txtPlayer"
+                            placeholder="New player name">
+                        <button type="button" id="btn-add-new-player" class="btn btn-primary topspace">Add</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h4 id="game-round"></h4>
+            </div>
+            <div class="col">
+                <div id="leader"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <ul id="players-list" class="list-group"></ul>
+            </div>
+        </div>
+        <div class="row topspace">
+            <div class="col-6">
+                <button type="button" id="btn-start-over" class="btn btn-primary form-control in-game-button">Start
+                    Over</button>
+            </div>
+            <div class="col-6">
+                <button type="button" id="btn-clear-scores" class="btn btn-primary form-control in-game-button">Clear
+                    Scores</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="button" id="btn-start-game" class="btn btn-primary form-control">Start Game</button>
+            </div>
+        </div>
+    </div>
+    <div id="modal-confirm" class="modal" data-backdrop="static" tabindex="-1" role="dialog"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Are you sure?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to <span id="action-to-confirm"></span>?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn-confirm" class="btn btn-primary">Yes</button>
+                    <button type="button" id="btn-cancel" class="btn btn-default">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>
