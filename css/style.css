@@ -1,0 +1,29 @@
+html,
+body {
+    height: 100%;
+    overflow: hidden;
+}
+
+h4 {
+    color: white;
+}
+
+body {
+    background: url("../assets/cards_bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.topspace {
+    margin-top: 15px;
+}
+
+.playerscore {
+    font-size: 25px;
+    line-height: 1;
+}
+
+.btn {
+    height: 45px;
+    margin-top: 8px;
+}

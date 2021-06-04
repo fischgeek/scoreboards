@@ -1,32 +1,13 @@
+<meta charset="UTF-8">
 <html>
 
 <head>
-    <script src="scripts/jquery-3.2.0.min.js"></script>
-    <script src="libraries/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
-    <link href="libraries/bootstrap-4.4.1-dist/css/bootstrap.min.css" rel="stylesheet" />
-    <script src="scripts/main.js?v=e2238f50"></script>
-    <style>
-        h4 {
-            color: white;
-        }
-
-        body {
-            background: url("assets/cards_bg.jpg");
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-
-        .topspace {
-            margin-top: 15px;
-        }
-
-        .playerscore {
-            font-size: 25px;
-            line-height: 1;
-        }
-    </style>
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=stretch">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/main.js?v=508b74"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=stretch">
 </head>
 
 <body>
@@ -36,9 +17,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">New player</h5>
-                        <input type="text" id="new-player-name" class="form-control" id="txtPlayer"
-                            placeholder="New player name">
-                        <button type="button" id="btn-add-new-player" class="btn btn-primary topspace">Add</a>
+                        <input type="text" id="new-player-name" class="form-control" id="txtPlayer" placeholder="New player name">
+                        <button type="button" id="btn-add-new-player" class="btn btn-primary topspace">Add</a></button>
                     </div>
                 </div>
             </div>
@@ -54,27 +34,23 @@
                 </ul>
             </div>
         </div>
-        <div class="row">
+        <div class="row button-row">
             <div class="col">
                 <button type="button" id="btn-start-game" class="btn btn-primary form-control">Start Game</button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <button type="button" id="btn-end-round" class="btn btn-primary form-control" style="display:none">End
-                    Round</button>
+                <button type="button" id="btn-end-round" class="btn btn-primary form-control" style="display:none">End Round</button>
+                <button type="button" id="btn-new-game" class="btn btn-primary form-control" style="display:none">New Game</button>
+                <button type="button" id="btn-reset" class="btn btn-primary form-control" style="display:none">Reset</button>
             </div>
         </div>
     </div>
-    <div id="modal-update-scores" class="modal" data-backdrop="static" tabindex="-1" role="dialog"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div id="modal-update-scores" class="modal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Round Ended</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                 </div>
                 <div class="modal-body">
                     <p>Enter the scores for round.</p>

@@ -1,22 +1,26 @@
-$(document).ready(function () {
-    var game = {
-        round: 1,
-        players: Array()
-    }
+$(function() {
+    var game = loadGame()
+    if (game.isSaved) { startGame() }
 
-    $('#btn-add-new-player').click(function () { addPlayer() })
+    $('#btn-add-new-player').click(function() { addPlayer() })
 
-    $('#btn-start-game').click(function () { startGame() })
+    $('#btn-start-game').click(function() { startGame() })
 
-    $("#btn-end-round").click(function () { endRound() })
+    $("#btn-end-round").click(function() { endRound() })
 
-    $('#btn-save-updated-scores').click(function () { saveUpdatedScores() })
+    $('#btn-save-updated-scores').click(function() { saveUpdatedScores() })
+
+    $('#btn-new-game').click(function() { newGame() })
+
+    $('#btn-reset').click(function() { reset() })
 
     function startGame() {
         $("#setup-row").hide()
         $("#btn-start-game").hide()
+        $("#btn-new-game").hide()
+        $("#btn-reset").hide()
         $("#btn-end-round").show()
-        $("#game-round").text("Round " + game.round)
+        updateGameBoard()
     }
 
     function endRound() {
@@ -28,7 +32,6 @@ $(document).ready(function () {
             $("#modal-update-scores-body").append(html)
         }
         $("#modal-update-scores").modal("show")
-
     }
 
     function saveUpdatedScores() {
@@ -41,14 +44,18 @@ $(document).ready(function () {
             }
             p.score += x
         }
+        game.round += 1
+        game.isSaved = true
+        localStorage.setItem('rummy', JSON.stringify(game))
         $("#modal-update-scores").modal("hide")
         updateGameBoard()
     }
 
     function updateGameBoard() {
-        game.round++
         $("#game-round").text("Round " + game.round)
-        updateDealer()
+        if (game.round > 1) {
+            updateDealer()
+        }
         populatePlayersList()
         if (game.round == 8) {
             gameOver()
@@ -71,16 +78,19 @@ $(document).ready(function () {
         }
     }
 
-    function addPlayer(name) {
-        var newPlayer = {
-            name: $("#new-player-name").val().replace(" ", ""),
-            score: 0,
-            dealer: game.players.length == 0 ? true : false
+    function addPlayer() {
+        var playerName = $("#new-player-name").val().replace(" ", "")
+        if (playerName) {
+            var newPlayer = {
+                name: playerName,
+                score: 0,
+                dealer: game.players.length == 0 ? true : false
+            }
+            game.players.push(newPlayer)
+            populatePlayersList()
+            $("#new-player-name").val("")
+            $("#new-player-name").focus()
         }
-        game.players.push(newPlayer)
-        populatePlayersList()
-        $("#new-player-name").val("")
-        $("#new-player-name").focus()
     }
 
     function populatePlayersList() {
@@ -97,10 +107,41 @@ $(document).ready(function () {
 
     function gameOver() {
         $("#btn-end-round").hide()
+        $("#btn-new-game").show()
+        $("#btn-reset").show()
         var sorted = game.players.sort((a, b) => {
             return (a.score < b.score) ? -1 : 1
         })
         var winner = sorted[0]
         $("#game-round").text(winner.name + " wins!")
+        localStorage.clear()
+    }
+
+    function newGame() {
+        game.round = 1
+        for (var i = 0; i < game.players.length; i++) {
+            game.players[i].score = 0
+        }
+        console.log(game)
+        startGame()
+    }
+
+    function reset() {
+        localStorage.clear()
+        location.reload()
+    }
+
+    function loadGame() {
+        var existingGame = localStorage.getItem('rummy')
+        if (existingGame) {
+            game = JSON.parse(existingGame, game)
+        } else {
+            var game = {
+                round: 1,
+                isSaved: false,
+                players: Array()
+            }
+        }
+        return game
     }
 })
