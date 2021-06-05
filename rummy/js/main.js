@@ -27,6 +27,7 @@ $(function() {
             $("#btn-new-game").hide()
             $("#btn-reset").hide()
             $("#btn-end-round").show()
+            $("#edit-icon").show()
             updateGameBoard()
         }
     }
@@ -73,7 +74,6 @@ $(function() {
         if (!game.editMode) {
             game.round += 1
             game.isSaved = true
-            localStorage.setItem('rummy', JSON.stringify(game))
         }
         $("#modal-update-scores").modal("hide")
         updateGameBoard()
@@ -85,6 +85,7 @@ $(function() {
             updateDealer()
         }
         populatePlayersList()
+        saveGame()
         if (game.round == 8) {
             gameOver()
         }
@@ -172,5 +173,10 @@ $(function() {
             }
         }
         return game
+    }
+
+    function saveGame() {
+        game.isSaved = true
+        localStorage.setItem('rummy', JSON.stringify(game))
     }
 })
