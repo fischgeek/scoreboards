@@ -1,8 +1,6 @@
 $(document).ready(function () {
-    var game = {
-        players: Array(),
-        modalIsForStartOver: false
-    }
+    var game = loadGame()
+    if (game.isSaved) { startGame() }
 
     $("#btn-add-new-player").click(function () { addPlayer() })
     $("#btn-start-game").click(function () { startGame() })
@@ -15,12 +13,17 @@ $(document).ready(function () {
     $("#btn-confirm").click(function () { confirmAction() })
 
     function startGame() {
-        $("#setup-row").hide()
-        $("#btn-start-game").hide()
-        $("#btn-end-round").show()
-        $("#leader").show()
-        $("#game-round").text("Wipe Out")
-        $(".in-game-button").show()
+        if (game.players.length > 0) {
+            $("#setup-row").hide()
+            $("#btn-start-game").hide()
+            $("#btn-end-round").show()
+            $("#leader").show()
+            $("#game-round").text("Wipe Out")
+            $(".in-game-button").show()
+            game.isSaved = false
+            game.loadedFromSave = true // spoof
+            updateGameBoard()
+        }
     }
 
     function endRound() {
@@ -36,8 +39,11 @@ $(document).ready(function () {
     }
 
     function updateGameBoard() {
-        nextPlayerTurn()
+        if (!game.loadedFromSave) {
+            nextPlayerTurn()
+        }
         populatePlayersList()
+        saveGame()
     }
 
     function nextPlayerTurn() {
@@ -58,7 +64,6 @@ $(document).ready(function () {
 
     function addPlayer() {
         var newPlayerName = $("#new-player-name").val().replace(/\s/g, '')
-        console.log(newPlayerName)
         if (newPlayerName === "") {
             $("#new-player-name").focus()
             return
@@ -185,7 +190,8 @@ $(document).ready(function () {
 
     function confirmAction() {
         if (game.modalIsForStartOver) {
-            window.location.href = window.location.href
+            localStorage.clear()
+            location.reload()
         } else {
             for (var i = 0; i < game.players.length; i++) {
                 var p = game.players[i]
@@ -194,7 +200,31 @@ $(document).ready(function () {
             }
             game.players[0].isTurn = true
             populatePlayersList()
+            updateGameBoard()
             $("#modal-confirm").modal("hide")
         }
+    }
+
+    function loadGame() {
+        var existingGame = localStorage.getItem('wipeout')
+        if (existingGame) {
+            game = JSON.parse(existingGame, game)
+            game.loadedFromSave = true
+        } else {
+            var game = {
+                round: 1,
+                isSaved: false,
+                players: Array(),
+                laodedFromSave: false
+            }
+        }
+        return game
+    }
+
+    function saveGame() {
+        game.isSaved = true
+        game.loadedFromSave = false
+        localStorage.setItem('wipeout', JSON.stringify(game))
+        console.log(game)
     }
 })
