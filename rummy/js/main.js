@@ -28,6 +28,7 @@ $(function() {
             $("#btn-reset").hide()
             $("#btn-end-round").show()
             $("#edit-icon").show()
+            game.isSaved = false
             updateGameBoard()
         }
     }
@@ -81,7 +82,7 @@ $(function() {
 
     function updateGameBoard() {
         $("#game-round").text("Round " + game.round)
-        if (game.round > 1) {
+        if (game.round > 1 && game.isSaved) {
             updateDealer()
         }
         populatePlayersList()
@@ -152,7 +153,6 @@ $(function() {
         for (var i = 0; i < game.players.length; i++) {
             game.players[i].score = 0
         }
-        console.log(game)
         startGame()
     }
 
@@ -178,5 +178,6 @@ $(function() {
     function saveGame() {
         game.isSaved = true
         localStorage.setItem('rummy', JSON.stringify(game))
+        console.log(game)
     }
 })
