@@ -1,43 +1,57 @@
 html,
 body {
-    height: 100%;
-    overflow: hidden;
+  height: 100%;
+  overflow: hidden;
+}
+
+h1 {
+  color: white;
 }
 
 h4 {
-    color: white;
-    display: inline-block;
+  color: white;
+  display: inline-block;
 }
 
 body {
-    background: url("../rummy/assets/cards_bg.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
+  background: url("../assets/cards_bg.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .topspace {
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
 .playerscore {
-    font-size: 25px;
-    line-height: 1;
+  font-size: 25px;
+  line-height: 1;
 }
 
 .btn {
-    height: 45px;
-    margin-top: 8px;
+  height: 45px;
+  margin-top: 8px;
 }
 
 #edit-icon {
-    background: url("../rummy/assets/edit.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: block;
-    float: right;
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    right: 25px;
-    top: 5px;
+  background: url("../assets/edit.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: block;
+  float: right;
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 25px;
+  top: 5px;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  color: white;
 }

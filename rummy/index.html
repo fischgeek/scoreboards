@@ -2,67 +2,75 @@
 <html>
 
 <head>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/main.js?v=f05d4a35f146aba0e28997ac773bdbe7"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/style.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=stretch">
+  <script src="js/jquery.min.js"></script>
+  <script src="js/main.js?v=f05d4a35f146aba0e28997ac773bdbe7"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=stretch">
 </head>
 
 <body>
-    <div id="setup-container" class="container topspace">
-        <div id="setup-row" class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">New player</h5>
-                        <input type="text" id="new-player-name" class="form-control" id="txtPlayer" placeholder="New player name">
-                        <button type="button" id="btn-add-new-player" class="btn btn-primary topspace">Add</a></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <h4 id="game-round"></h4>
-                <span id="edit-icon" style="display:none"></span>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <ul id="players-list" class="list-group">
-                </ul>
-            </div>
-        </div>
-        <div class="row button-row">
-            <div class="col">
-                <button type="button" id="btn-start-game" class="btn btn-primary form-control">Start Game</button>
-                <button type="button" id="btn-end-round" class="btn btn-primary form-control" style="display:none">End Round</button>
-                <button type="button" id="btn-new-game" class="btn btn-primary form-control" style="display:none">New Game</button>
-                <button type="button" id="btn-reset" class="btn btn-primary form-control" style="display:none">Reset</button>
-            </div>
-        </div>
+  <div id="setup-container" class="container topspace">
+    <div class="row">
+      <div class="col">
+        <h4>Rummy</h4>
+      </div>
     </div>
-    <div id="modal-update-scores" class="modal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 id="modal-title" class="modal-title"></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div id="setup-row" class="row">
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">New player</h5>
+            <input type="text" id="new-player-name" class="form-control" id="txtPlayer" placeholder="New player name">
+            <button type="button" id="btn-add-new-player" class="btn btn-primary topspace">Add</a></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h4 id="game-round"></h4>
+        <span id="edit-icon" style="display:none"></span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <ul id="players-list" class="list-group">
+        </ul>
+      </div>
+    </div>
+    <div class="row button-row">
+      <div class="col">
+        <button type="button" id="btn-start-game" class="btn btn-primary form-control">Start Game</button>
+        <button type="button" id="btn-end-round" class="btn btn-primary form-control" style="display:none">End Round</button>
+        <button type="button" id="btn-new-game" class="btn btn-primary form-control" style="display:none">New Game</button>
+        <button type="button" id="btn-reset" class="btn btn-primary form-control" style="display:none">Reset</button>
+      </div>
+    </div>
+  </div>
+  <div id="modal-update-scores" class="modal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 id="modal-title" class="modal-title"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
-                </div>
-                <div class="modal-body">
-                    <p id="modal-instructions">Enter the scores for round.</p>
-                    <div id="modal-update-scores-body" class="row"></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="btn-save-updated-scores" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
         </div>
+        <div class="modal-body">
+          <p id="modal-instructions">Enter the scores for round.</p>
+          <div id="modal-update-scores-body" class="row"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="btn-save-updated-scores" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
     </div>
+  </div>
+  <div id="footer">
+    <span><a href="../index.html">Scoreboards</a></span>
+  </div>
 </body>
 
 </html>

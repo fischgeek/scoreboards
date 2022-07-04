@@ -4,6 +4,10 @@ body {
   overflow: hidden;
 }
 
+h1 {
+  color: white;
+}
+
 #main-container {
   position: absolute;
   top: 0;
@@ -60,4 +64,14 @@ li span {
 
 .in-game-button {
   display: none;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  color: white;
 }
