@@ -121,7 +121,7 @@ $(document).ready(function() {
         $("#players-list").append(`
                 <li id="${p.name}" class="active-player list-group-item d-flex justify-content-between align-items-center list-group-item-primary">
                     <span class="player-name">${p.name}</span>
-                    <span><input class="player-new-score" type="number" /></span>
+                    <span><input class="player-new-score" type="tel" /></span>
                     <span>
                         <button id="btn-end-player-turn" type="button" class="btn btn-primary">
                         <i class="glyph material-icons">check</i>
