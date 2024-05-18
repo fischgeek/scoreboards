@@ -8,9 +8,14 @@ h1 {
   color: white;
 }
 
-h4 {
+h3 {
   color: white;
-  display: inline-block;
+  display: block;
+  text-align: center;
+}
+
+h5 {
+  color: white;
 }
 
 body {
