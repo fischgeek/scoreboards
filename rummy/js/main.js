@@ -1,5 +1,6 @@
 $(function() {
     var game = loadGame()
+    setupConfetti()
     if (game.isSaved) { startGame() }
 
     $('#btn-start-game').attr('disabled', 'disabled')
@@ -13,6 +14,8 @@ $(function() {
     $('#btn-save-updated-scores').click(function() { saveUpdatedScores() })
 
     $('#btn-new-game').click(function() { newGame() })
+
+    $('#btn-end-game-confetti').click(function() { gameOver() })
 
     $('#btn-reset').click(function() { reset() })
 
@@ -28,6 +31,8 @@ $(function() {
             $("#btn-reset").hide()
             $("#btn-end-round").show()
             $("#edit-icon").show()
+            $('#btn-end-game-confetti').hide()
+            $('#btn-save-updated-scores').show()
             game.isSaved = false
             updateGameBoard()
         }
@@ -39,10 +44,14 @@ $(function() {
         $("#modal-instructions").text("Enter the scores for round " + game.round + ".")
         for (var i = 0; i < game.players.length; i++) {
             var p = game.players[i]
-            var html = '<div style="padding-bottom:5px" class="col-4"><label>' + p.name + '</label><input id="' + p.name + '-score" type="number" class="form-control"></input></div>'
+            var html = '<div style="padding-bottom:5px" class="col-4"><label>' + p.name + '</label><input id="' + p.name + '-score" type="number" class="form-control" value="0"></input></div>'
             $("#modal-update-scores-body").append(html)
         }
         $("#modal-update-scores").modal("show")
+        if (game.round == 7) {
+            $("#btn-save-updated-scores").hide()
+            $("#btn-end-game-confetti").show()
+        }
     }
 
     function editScores() {
@@ -88,6 +97,7 @@ $(function() {
         populatePlayersList()
         saveGame()
         if (game.round == 8) {
+            debugger
             gameOver()
         }
     }
@@ -108,6 +118,33 @@ $(function() {
         }
     }
 
+    function updateLeader() {
+        for (var j = 0; j < game.players.length; j++) {
+            game.players[j].isLeader = ""
+        }
+        const tempList = game.players.slice()
+        tempList.sort((a, b) => a.score - b.score)
+        const lowestScore = tempList[0].score
+        const playersWithLowestScore = game.players.filter(player => player.score === lowestScore)
+        if (playersWithLowestScore.length === 1) {
+            playersWithLowestScore[0].isLeader = "leader"
+        }
+        // for (var i = 0; i < playersWithLowestScore.length; i++) {
+        //     playersWithLowestScore[i].isLeader = ""
+        // }
+        // const lowestScorePlayer = game.players.reduce((lowest, player) => {
+        //     return (player.score < lowest.score)? player : lowest
+        //   }, game.players[0])
+        // lowestScorePlayer.isLeader = "leader"
+        // for (var i = 0; i < game.players.length; i++) {
+        //     var p = game.players[i]
+        //     if (p.score < checkScore) {
+        //         checkScore = p.score
+        //         game.players[i].isLeader = "leader"
+        //     }
+        // }
+    }
+
     function addPlayer() {
         var playerName = $("#new-player-name").val().replace(" ", "")
         if (playerName) {
@@ -126,21 +163,23 @@ $(function() {
 
     function populatePlayersList() {
         $("#players-list").empty()
+        updateLeader()
         for (var i = 0; i < game.players.length; i++) {
             var p = game.players[i]
             if (p.dealer) {
-                $("#players-list").append('<li class="player-list-item list-group-item d-flex justify-content-between align-items-center list-group-item-primary">' + p.name + '<span class="playerscore" player="' + p.name + '">' + p.score + '</span></li>')
+                $("#players-list").append('<li class="player-list-item list-group-item d-flex justify-content-between align-items-center list-group-item-primary ' + p.isLeader + '">' + p.name + '<span class="playerscore" player="' + p.name + '">' + p.score + '</span></li>')
             } else {
-                $("#players-list").append('<li class="player-list-item list-group-item d-flex justify-content-between align-items-center">' + p.name + '<span class="playerscore" player="' + p.name + '">' + p.score + '</span></li>')
+                $("#players-list").append('<li class="player-list-item list-group-item d-flex justify-content-between align-items-center ' + p.isLeader + '">' + p.name + '<span class="playerscore" player="' + p.name + '">' + p.score + '</span></li>')
             }
         }
     }
 
     function gameOver() {
+        $("#modal-update-scores").modal("hide")
         $("#btn-end-round").hide()
         $("#btn-new-game").show()
         $("#btn-reset").show()
-        var sorted = game.players.sort((a, b) => {
+        var sorted = game.players.slice().sort((a, b) => {
             return (a.score < b.score) ? -1 : 1
         })
         var winner = sorted[0]
@@ -179,5 +218,17 @@ $(function() {
         game.isSaved = true
         localStorage.setItem('rummy', JSON.stringify(game))
         console.log(game)
+    }
+
+    function setupConfetti() {
+        // Pass in the id of an element
+        let confetti = new Confetti('btn-end-game-confetti');
+
+        // Edit given parameters
+        confetti.setCount(100);
+        confetti.setSize(1);
+        confetti.setPower(25);
+        confetti.setFade(false);
+        confetti.destroyTarget(false);
     }
 })
