@@ -39,6 +39,7 @@ $(function() {
     }
 
     function endRound() {
+        game.editMode = false
         $("#modal-update-scores-body").empty()
         $("#modal-title").text("Round " + game.round + " Ended")
         $("#modal-instructions").text("Enter the scores for round " + game.round + ".")
