@@ -45,7 +45,7 @@ $(function() {
         $("#modal-instructions").text("Enter the scores for round " + game.round + ".")
         for (var i = 0; i < game.players.length; i++) {
             var p = game.players[i]
-            var html = '<div style="padding-bottom:5px" class="col-4"><label>' + p.name + '</label><input id="' + p.name + '-score" type="number" class="form-control" value="0"></input></div>'
+            var html = '<div style="padding-bottom:5px" class="col-4"><label>' + p.name + '</label><input id="' + p.name + '-score" type="number" class="form-control" value=""></input></div>'
             $("#modal-update-scores-body").append(html)
         }
         $("#modal-update-scores").modal("show")
