@@ -98,7 +98,6 @@ $(function() {
         populatePlayersList()
         saveGame()
         if (game.round == 8) {
-            debugger
             gameOver()
         }
     }
@@ -176,6 +175,8 @@ $(function() {
     }
 
     function gameOver() {
+        debugger       
+        saveUpdatedScores()
         $("#modal-update-scores").modal("hide")
         $("#btn-end-round").hide()
         $("#btn-new-game").show()
@@ -211,6 +212,12 @@ $(function() {
                 isSaved: false,
                 players: Array()
             }
+        }
+        var game = {
+            round: 7,
+            isSaved: true,
+            players: [{name: 'test', score: 10, dealer: true, isLeader: 'leader'},
+                {name: 'test 2', score: 10, dealer: false, isLeader: ''}]
         }
         return game
     }
