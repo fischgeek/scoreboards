@@ -16,11 +16,24 @@ $(function() {
     $('#btn-new-game').click(function() { newGame() })
 
     $('#btn-end-game-confetti').click(function() { 
-        saveUpdatedScores()
+        for (var i = 0; i < game.players.length; i++) {
+            var p = game.players[i]
+            var x = $("#" + p.name + "-score").val()
+            x = parseInt(x)
+            if (isNaN(x)) {
+                x = 0
+            }
+            p.score += x
+        }
         gameOver() 
     })
 
     $('#btn-reset').click(function() { reset() })
+
+    $('#btn-full-reset').click(function() { 
+        reset()
+        game = loadGame()
+    })
 
     $('#edit-icon').click(function() { editScores() })
 
@@ -55,6 +68,9 @@ $(function() {
         if (game.round == 7) {
             $("#btn-save-updated-scores").hide()
             $("#btn-end-game-confetti").show()
+        } else {
+            $("#btn-save-updated-scores").show()
+            $("#btn-end-game-confetti").hide()
         }
     }
 
@@ -186,6 +202,17 @@ $(function() {
             return (a.score < b.score) ? -1 : 1
         })
         var winner = sorted[0]
+        
+        for (var i = 0; i < game.players.length; i++) {
+            if (game.players[i].name === winner.name) {
+                game.players[i].isLeader = "leader"
+            } else {
+                game.players[i].isLeader = ""
+            }
+        }
+        
+        populatePlayersList()
+        
         $("#game-round").text(winner.name + " wins!")
         localStorage.clear()
     }
@@ -224,10 +251,8 @@ $(function() {
     }
 
     function setupConfetti() {
-        // Pass in the id of an element
         let confetti = new Confetti('btn-end-game-confetti');
 
-        // Edit given parameters
         confetti.setCount(100);
         confetti.setSize(1);
         confetti.setPower(25);
